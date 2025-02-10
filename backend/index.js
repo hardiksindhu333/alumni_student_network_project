@@ -1,7 +1,8 @@
 import dotenv from "dotenv"
 dotenv.config({
-    path:"./.env"
+    path:"../.env"
 })
+import Razorpay from "razorpay";
 
 import connectDB from "./config/Database.js";
 import {app} from './app.js'
@@ -24,3 +25,65 @@ connectDB()
     console.log("mongodb connection failed !!! " , error);
     
 })
+
+//Razorpay Payment
+app.get('/', (req, res) => {
+    res.send("Hello World!");
+})
+
+console.log(process.env.RAZORPAY_KEY)
+app.post('/orders', async(req, res) => {
+    const razorpay = new Razorpay({
+        key_id: process.env.RAZORPAY_KEY,
+        key_secret: process.env.RAZORPAY_SECRET,
+    })
+
+    const options = {
+        amount: req.body.amount,
+        currency: req.body.currency,
+        receipt: "receipt#1",
+        payment_capture: 1
+    }
+
+    try {
+        const response = await razorpay.orders.create(options)
+
+        res.json({
+            order_id: response.id,
+            currency: response.currency,
+            amount: response.amount
+        })
+    } catch (error) {
+        res.status(500).send("Internal server error")
+    }
+})
+
+
+app.get("/payment/:paymentId", async(req, res) => {
+    const {paymentId} = req.params;
+
+    const razorpay = new Razorpay({
+        key_id: process.env.RAZORPAY_KEY,
+        key_secret: process.env.RAZORPAY_SECRET,
+    })
+    
+    try {
+        const payment = await razorpay.payments.fetch(paymentId)
+
+        if (!payment){
+            return res.status(500).json("Error at razorpay loading")
+        }
+
+        res.json({
+            status: payment.status,
+            method: payment.method,
+            amount: payment.amount,
+            currency: payment.currency
+        })
+    } catch(error) {
+        res.status(500).json("failed to fetch")
+    }
+})
+// app.listen(port, () => {
+//     console.log(`server is running on ${port}`);
+// })

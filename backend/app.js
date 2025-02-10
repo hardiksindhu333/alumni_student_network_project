@@ -1,5 +1,5 @@
 import express from 'express';
-// import cors from "cors"
+import cors from "cors"
 import cookieParser from "cookie-parser"
 
 const app = express()
@@ -11,7 +11,10 @@ const app = express()
 //     credentials:true
 // }
 // ))
-
+app.use(cors({
+    origin: "*",  // Allow all origins (only for testing)
+    methods: ["GET", "POST"]
+}));
 app.use(express.json({limit:"500kb"}))
 app.use(express.urlencoded({extended:true ,limit:"500kb"}))
 app.use(express.static("public")) 
