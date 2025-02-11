@@ -15,11 +15,15 @@ import JobPosting from './pages/jobsPage/JobsPosting.jsx'
 import GetAllJobs from './pages/jobsPage/GetAllJobs.jsx'
 import UserDashboard from './pages/UserDashboard.jsx'
 import Batches from './pages/Batches.jsx'
+
 import EventPosting from './pages/eventsPage/EventPosting.jsx'
 import OpenSourceProjectPosting from './pages/projectPages/OpenSourceProjectPosting.jsx'
 import ShowProjects from './pages/projectPages/ShowProjects.jsx'
 import GetAllEvents from './pages/eventsPage/GetAllEvents.jsx'
 import UpdateUserProfile from './pages/updateProfile/UpdateUserProfile.jsx'
+import ChatPage from './components/ChatPage.jsx'
+
+
 import ChatPage from './components/ChatPage.jsx'
 
 const router = createBrowserRouter(
@@ -34,12 +38,16 @@ const router = createBrowserRouter(
 
       <Route path='getCurrentUser' element={<UserDashboard/>}/>
       <Route path='batches' element={<Batches/>}/>
+
       <Route path="/chat/:userId" element={<ChatPage/>} />
  <Route path='getallevents' element={<GetAllEvents/>}/>
       <Route path='eventposting' element={<EventPosting/>}/>
       <Route path='getAllProjects' element={<ShowProjects/>}/>
       <Route path='updateProfile' element={<UpdateUserProfile/>}/>
       <Route path='projectposting' element={<OpenSourceProjectPosting/>}/>
+
+      <Route path="/chat/:userId" element={<ChatPage />} />
+
 
     </Route>
   )

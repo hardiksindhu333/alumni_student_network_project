@@ -5,6 +5,7 @@ dotenv.config({
 })
 
 // import dotenv from "dotenv";
+
 import Razorpay from "razorpay";
 import connectDB from "./config/Database.js";
 import { app } from "./app.js";
@@ -21,6 +22,7 @@ const io = new Server(server, {
     credentials: true,
   },
 });
+
 
 // Export `io` so it can be used in other files
 export { io };
@@ -55,6 +57,43 @@ io.on("connection", (socket) => {
     io.emit("updateOnlineUsers", Array.from(onlineUsers.keys()));
   });
 });
+
+=======
+
+// Export `io` so it can be used in other files
+export { io };
+
+// Store online users
+const onlineUsers = new Map();
+
+io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`);
+
+  socket.on("userConnected", (userId) => {
+    onlineUsers.set(userId, socket.id);
+    io.emit("updateOnlineUsers", Array.from(onlineUsers.keys()));
+  });
+
+  socket.on("sendMessage", (message) => {
+    console.log("Message received:", message);
+    const recipientSocketId = onlineUsers.get(message.receiver);
+    if (recipientSocketId) {
+      io.to(recipientSocketId).emit("receiveMessage", message);
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`User disconnected: ${socket.id}`);
+    for (let [userId, socketId] of onlineUsers.entries()) {
+      if (socketId === socket.id) {
+        onlineUsers.delete(userId);
+        break;
+      }
+    }
+    io.emit("updateOnlineUsers", Array.from(onlineUsers.keys()));
+  });
+});
+
 
 // Connect to MongoDB and Start Server
 connectDB()
