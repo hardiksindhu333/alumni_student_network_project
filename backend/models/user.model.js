@@ -3,7 +3,7 @@ import { Schema } from "mongoose";
 import bcrypt from 'bcryptjs'
 import dotenv from "dotenv"
 dotenv.config({
-    path:"../.env"
+    path:"./.env"
 })
 import jwt from 'jsonwebtoken'
 

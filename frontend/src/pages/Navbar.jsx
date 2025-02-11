@@ -53,14 +53,19 @@ function Navbar() {
           </Link>
         </li>
         <li className="flex items-center space-x-2 cursor-pointer hover:text-yellow-400">
-          <Link to="/events" className="flex items-center space-x-2">
+          <Link to="/getallevents" className="flex items-center space-x-2">
             <FaCalendarAlt /> <span>Events</span>
           </Link>
         </li>
         <li className="flex items-center space-x-2 cursor-pointer hover:text-yellow-400">
-          <Link to="/projects" className="flex items-center space-x-2">
+          <Link to="/getAllProjects" className="flex items-center space-x-2">
             <FaProjectDiagram /> <span>Projects</span>
-          </Link>
+          </Link> 
+        </li>
+        <li className="flex items-center space-x-2 cursor-pointer hover:text-yellow-400">
+          <Link to="/updateProfile" className="flex items-center space-x-2">
+            <FaProjectDiagram /> <span>Update Profile</span>
+          </Link> 
         </li>
 
         {/* Show Login or Logout Based on User Authentication */}

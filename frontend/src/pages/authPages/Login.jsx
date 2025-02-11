@@ -2,9 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
-import {useLoginMutation} from '../redux/api/userApiSlice.js'
+import {useLoginMutation} from '../../redux/api/userApiSlice.js'
 import { useDispatch, useSelector } from "react-redux";
-import { setCredentials } from "../redux/auth/authSlice.js";
+import { setCredentials } from "../../redux/auth/authSlice.js";
 import { useEffect } from "react";
 
 export default function Login() {

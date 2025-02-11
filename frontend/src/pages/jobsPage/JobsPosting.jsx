@@ -1,6 +1,6 @@
 import { useState } from "react";
-import {useJobPostingMutation} from '../redux/api/jobs.ApiSlice.js'
-import Loader from '../components/Loader.jsx'
+import {useJobPostingMutation} from '../../redux/api/jobs.ApiSlice.js'
+import Loader from '../../components/Loader.jsx'
 function JobPosting() {
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
@@ -42,7 +42,7 @@ function JobPosting() {
     <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md space-y-4 mt-10">
       <h2 className="text-2xl font-semibold text-center">Post a Job</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input type="text" placeholder="Job Title" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 border rounded-md" required />
+        <input type="text" placeholder="Job Title" defaultValue={"helloji"} value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 border rounded-md" required />
         <input type="text" placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} className="w-full p-2 border rounded-md" required />
         <input type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} className="w-full p-2 border rounded-md" required />
         <input type="text" placeholder="Job Type (Full-Time/Part-Time)" value={jobType} onChange={(e) => setJobType(e.target.value)} className="w-full p-2 border rounded-md" required />

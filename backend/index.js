@@ -1,6 +1,6 @@
 import dotenv from "dotenv"
 dotenv.config({
-    path:"../.env"
+    path:"./.env"
 })
 import Razorpay from "razorpay";
 
@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
     res.send("Hello World!");
 })
 
-console.log(process.env.RAZORPAY_KEY)
+// console.log(process.env.RAZORPAY_KEY)
 app.post('/orders', async(req, res) => {
     const razorpay = new Razorpay({
         key_id: process.env.RAZORPAY_KEY,

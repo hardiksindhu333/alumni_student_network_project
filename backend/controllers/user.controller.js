@@ -180,6 +180,8 @@ const updateUserDetail = asyncHandler(async(req ,res)=>{
     
   const hashedPassword = await bcrypt.hash(req.body.newPassword , 10)
   
+
+  
   const updatedUser =await User.findByIdAndUpdate(user?._id,
     {
       $set:{
@@ -187,17 +189,15 @@ const updateUserDetail = asyncHandler(async(req ,res)=>{
         email:req.body?.email || user.email,
         password:hashedPassword|| user.password ,
         fullName:req.body?.fullName||user.fullName, 
-        role,
-        skills,
-        batch,
-        education,
-        bio,
-        intrests,
-        Linkdin,
-        Github,
+        role:req.body?.role || user.role,
+        skills:req.body?.skills || user.skills,
+        batch:req.body?.batch || user.batch,
+        education:req.body?.education || user.education,
+        bio:req.body?.bio || user.bio,
+        intrests:req.body?.intrests || user.intrests,
+        Linkdin:req.body?.Linkdin || user.Linkdin,
+        Github:req.body?.Github || user.Github,
        
-    
-    
     
     }
     }
