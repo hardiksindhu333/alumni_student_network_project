@@ -177,9 +177,9 @@
 
 
 import { useState } from "react";
-import { useRegisterMutation } from "../redux/api/userApiSlice.js"
+import { useRegisterMutation } from "../../redux/api/userApiSlice.js"
 import {useNavigate} from 'react-router-dom'
-import Loader from "../components/Loader.jsx";
+import Loader from  '../../components/Loader.jsx'
 
 function Register() {
   const [fullName, setFullName] = useState("");

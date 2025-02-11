@@ -24,7 +24,7 @@ function UserDashboard() {
         <p className="text-gray-500">Education: {user?.education}</p>
         <p className="text-gray-500 mt-2">Skills: {user?.skills}</p>
         <p className="text-gray-500 mt-2">Bio: {user?.bio}</p>
-        <p className="text-gray-500 mt-2">Interests: {user?.interests}</p>
+        <p className="text-gray-500 mt-2">Interests: {user?.intrests}</p>
         <div className="flex gap-4 mt-4">
           <a href={user?.linkedin} className="text-blue-500 font-medium" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href={user?.github} className="text-gray-800 font-medium" target="_blank" rel="noopener noreferrer">GitHub</a>

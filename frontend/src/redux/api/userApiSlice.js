@@ -43,6 +43,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
                   return response.data; // Since the jobs are inside the `data` field
                 },
            })
+           ,
+           updateProfile:builder.mutation({
+            query:(data)=>({
+              url:`${MAIN_URL}/updateUserDetail`,
+              method:"PUT",
+              body:data
+            })
+           })
 
 
 
@@ -50,4 +58,4 @@ export const userApiSlice = apiSlice.injectEndpoints({
 });
 
 
-export const  {useLoginMutation , useLogoutMutation , useRegisterMutation ,useGetUserQuery} = userApiSlice;
+export const  {useLoginMutation , useLogoutMutation , useRegisterMutation ,useGetUserQuery ,useUpdateProfileMutation} = userApiSlice;

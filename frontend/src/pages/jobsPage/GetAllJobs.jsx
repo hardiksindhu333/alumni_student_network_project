@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useGetalljobsQuery } from "../redux/api/jobs.ApiSlice.js";
+import { useGetalljobsQuery } from "../../redux/api/jobs.ApiSlice.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 // import { useGetJobsQuery } from "../redux/api/jobApi";
@@ -10,6 +10,7 @@ function GetAllJobs() {
     const { data: jobs, error, isLoading, isSuccess, isError } = useGetalljobsQuery();
 
     const {userInfo} = useSelector((state)=>(state.auth))
+    
     const navigate = useNavigate()
     // console.log(userInfo.data.user.role)
   
