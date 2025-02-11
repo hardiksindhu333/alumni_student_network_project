@@ -1,30 +1,69 @@
-import dotenv from "dotenv"
-dotenv.config({
-    path:"../.env"
-})
+import dotenv from "dotenv";
 import Razorpay from "razorpay";
-
 import connectDB from "./config/Database.js";
-import {app} from './app.js'
+import { app } from "./app.js";
+import { createServer } from "http";
+import { Server } from "socket.io";
+import userRoutes from './routes/user.routes.js';
+dotenv.config({ path: "../.env" });
 
+// Initialize the HTTP Server and Socket.io
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    credentials: true,
+  },
+});
 
+// Export `io` so it can be used in other files
+export { io };
 
+// Store online users
+const onlineUsers = new Map();
+
+io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`);
+
+  socket.on("userConnected", (userId) => {
+    onlineUsers.set(userId, socket.id);
+    io.emit("updateOnlineUsers", Array.from(onlineUsers.keys()));
+  });
+
+  socket.on("sendMessage", (message) => {
+    console.log("Message received:", message);
+    const recipientSocketId = onlineUsers.get(message.receiver);
+    if (recipientSocketId) {
+      io.to(recipientSocketId).emit("receiveMessage", message);
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`User disconnected: ${socket.id}`);
+    for (let [userId, socketId] of onlineUsers.entries()) {
+      if (socketId === socket.id) {
+        onlineUsers.delete(userId);
+        break;
+      }
+    }
+    io.emit("updateOnlineUsers", Array.from(onlineUsers.keys()));
+  });
+});
+
+// Connect to MongoDB and Start Server
 connectDB()
-.then(()=>{
-    app.listen(process.env.PORT || 7000 , ()=>{
-        console.log(`server is running at port ${process.env.PORT ||7000}`);
-        
-    })
-    app.on("error" ,(error)=>{
-        console.log("error",error);
-        
-        throw error
-    })
+  .then(() => {
+    server.listen(process.env.PORT || 7000, () => {
+      console.log(`Server running on port ${process.env.PORT || 7000}`);
+    });
 
-}).catch((error)=>{
-    console.log("mongodb connection failed !!! " , error);
-    
-})
+    server.on("error", (error) => {
+      console.error("Server error:", error);
+    });
+  })
+  .catch((error) => {
+    console.error("MongoDB connection failed:", error);
+  });
 
 //Razorpay Payment
 app.get('/', (req, res) => {
@@ -87,3 +126,5 @@ app.get("/payment/:paymentId", async(req, res) => {
 // app.listen(port, () => {
 //     console.log(`server is running on ${port}`);
 // })
+
+app.use("/api", userRoutes);

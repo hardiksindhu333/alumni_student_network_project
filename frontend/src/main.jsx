@@ -14,7 +14,8 @@ import Register from './pages/Register.jsx'
 import JobPosting from './pages/JobsPosting.jsx'
 import GetAllJobs from './pages/GetAllJobs.jsx'
 import UserDashboard from './pages/UserDashboard.jsx'
-
+import Batches from './pages/Batches.jsx'
+import ChatPage from './components/ChatPage.jsx'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
@@ -24,6 +25,8 @@ const router = createBrowserRouter(
       <Route path='alljobs' element={<GetAllJobs/>}/>
       <Route path='jobsposting' element={<JobPosting/>}/>
       <Route path='getCurrentUser' element={<UserDashboard/>}/>
+      <Route path='batches' element={<Batches/>}/>
+      <Route path="/chat/:userId" element={<ChatPage />} />
 
     </Route>
   )
