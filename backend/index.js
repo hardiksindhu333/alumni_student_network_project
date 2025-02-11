@@ -6,9 +6,8 @@ import Razorpay from "razorpay";
 
 import connectDB from "./config/Database.js";
 import {app} from './app.js'
-
-
-
+import userRoutes from './routes/user.routes.js'
+import messageRoutes from './routes/message.routes.js'
 connectDB()
 .then(()=>{
     app.listen(process.env.PORT || 7000 , ()=>{
@@ -87,3 +86,5 @@ app.get("/payment/:paymentId", async(req, res) => {
 // app.listen(port, () => {
 //     console.log(`server is running on ${port}`);
 // })
+
+app.use("/api", userRoutes);
