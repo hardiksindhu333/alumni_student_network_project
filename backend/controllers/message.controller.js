@@ -1,13 +1,14 @@
 import { Message } from "../models/message.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
+import { io } from "../index.js"; // Import the Socket.io instance
 
 // ✅ Send a new message
 export const sendMessage = asyncHandler(async (req, res) => {
-  console.log("Incoming request body:", req.body); // ✅ Debugging Log
+  console.log("Incoming request body:", req.body);
 
-  const { recipientId, text } = req.body; // ✅ Fix: Use recipientId instead of receiver
-  const sender = req.user?._id; // ✅ Extract sender from authenticated user
+  const { recipientId, text } = req.body;
+  const sender = req.user?._id;
 
   if (!sender) {
     throw new ApiError(401, "Unauthorized: User not authenticated");
@@ -22,8 +23,12 @@ export const sendMessage = asyncHandler(async (req, res) => {
   const newMessage = new Message({ sender, receiver: recipientId, text });
   await newMessage.save();
 
+  // Emit message to recipient in real-time
+  io.emit("receiveMessage", newMessage);
+
   res.status(201).json(newMessage);
 });
+
 
 
 // ✅ Get messages for a specific user
