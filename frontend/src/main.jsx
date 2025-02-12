@@ -62,3 +62,51 @@ createRoot(document.getElementById('root')).render(
   </StrictMode>,
 )
 
+
+
+
+
+
+
+
+
+// routes
+
+
+
+// import React from 'react';
+// import { Routes, Route } from 'react-router-dom';
+// import Home from './pages/Home';
+// import Events from './pages/Events';
+// import Donation from './pages/Donation';
+// import JobPortal from './pages/Jobportal';
+// import Login from './pages/Login';
+// import Register from './pages/Register';
+// import Header from './components/Header';
+// import Footer from './components/Footer';
+// import Profile from './components/Profile';
+// import Batches from './pages/Batches';
+
+// function App() {
+//   return (
+//     <div className="flex flex-col min-h-screen">
+//       <Header />
+//       <main className="flex-grow">
+//         <Routes>
+//           <Route path="/" element={<Home />} />
+//           <Route path="/events" element={<Events />} />
+//           <Route path="/donation" element={<Donation />} />
+//           <Route path="/jobportal" element={<JobPortal />} />
+//           <Route path="/login" element={<Login />} />
+//           <Route path="/register" element={<Register />} />
+//           <Route path="/profile" element={<Profile />} />
+//           <Route path="/batches" element={<Batches />} />
+
+//         </Routes>
+//       </main>
+//       <Footer />
+//     </div>
+//   );
+// }
+
+// export default App;
