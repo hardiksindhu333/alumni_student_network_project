@@ -51,3 +51,38 @@ const Batches = () => {
 };
 
 export default Batches;
+
+
+// import React from 'react';
+
+// const Batches = () => {
+//   // Calculate the current year and generate an array for the last 6 years
+//   const currentYear = new Date().getFullYear();
+//   const years = Array.from({ length: 6 }, (_, i) => currentYear - i);
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 p-4">
+//       <div className="container mx-auto">
+//         <h1 className="text-4xl font-bold text-center text-[#004d40] mb-8">
+//           Past Batches
+//         </h1>
+//         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+//           {years.map((year) => (
+//             <div
+//               key={year}
+//               className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center"
+//             >
+//               <h2 className="text-2xl font-bold text-[#004d40]">Batch {year}</h2>
+//               <p className="text-gray-700 mt-2 text-center">
+//                 A glimpse of our alumni from the year {year}. Their journey
+//                 began here and continues to inspire future generations.
+//               </p>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Batches;
